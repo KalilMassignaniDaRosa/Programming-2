@@ -1,9 +1,9 @@
-<?php 
+<?php
 require_once "Animal.php";
 class Dog extends Animal
 {
     public function talk(): void {
-        echo "Rof rof";
+        echo "Woof Woof";
     }
 
     public function move(): void{

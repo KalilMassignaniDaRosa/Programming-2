@@ -10,17 +10,10 @@ class Item{
         $this->price = $price;
     }
 
-    public function showItem(): void{
-        echo "Id: ". $this->id ."\n";
-        echo "Name: ". $this->name ."\n";
-        echo "Price: $". $this->price ."\n";
+    public function showItem(): string {
+        return "<br>
+                Id: {$this->id}<br>
+                Name: <span class='highlight'>{$this->name}</span><br>
+                Price: $<strong>{$this->price}</strong><br>";
     }
 }
-
-$i1 = new Item(1,"Mouse", 15);
-$i2 = new Item(2,"Keyboard",99.90);
-$i3 = new Item(3,"Chair",150);
-$i4 = new Item(4,"Table",550);
-$i5 = new Item(5,"Laptop",4500);
-
-//$i5->showItem();

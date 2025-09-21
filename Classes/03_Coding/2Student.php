@@ -9,16 +9,42 @@ class Student{
     }
 
     public function verifyApprove():bool {
-        return $this->average >= 7 ? true : false;
+        return $this->average >= 7;
     }
 
-    public function returnSituation(bool $situation): string{
-        return $situation ?"Approved":"Failed";
+    public function returnSituation(): string{
+        $situation = $this->verifyApprove() ? "Approved" : "Failed";
+        $classColor = $this->verifyApprove() ? "success" : "error";
+
+        return "<span class='{$classColor}'>{$situation}</span>";
+    }
+
+    public function show(): string {
+        return "Student: {$this->name}<br>
+                Average: {$this->average}<br>
+                Situation: {$this->returnSituation()}";
     }
 }
 
 $s1 = new Student("Arthur", 8.5);
 $s2 = new Student("Flávia",5);
+?>
 
-echo "Student: ". $s1->name ."\nSituation: ".$s1->returnSituation($s1->verifyApprove())."\n";
-echo "Student: ". $s2->name ."\nSituation: ".$s2->returnSituation($s2->verifyApprove())."\n";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><?= basename(__FILE__) ?></title>
+    <link rel="stylesheet" href="../../generic.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Students</h1>
+        <p><?= $s1->show() ?></p>
+
+        <br><hr><br>
+
+        <p><?= $s2->show() ?></p>
+    </div>
+</body>
+</html>

@@ -1,14 +1,14 @@
 <?php
 // Import em php
 require_once 'Item.php';
-require_once 'ItemCart.php';
+require_once 'CartItem.php';
 class Cart{
     public array $items = [];
 
     public function addItem(Item $item, int $quantity): void {
         foreach ($this->items as $cartItem) {
             if ($cartItem->item->id == $item->id) {
-                $cartItem->quantity += $quantity; 
+                $cartItem->quantity += $quantity;
                 return;
             }
         }
@@ -26,33 +26,14 @@ class Cart{
         return $total;
     }
 
-    public function showCart(): void {
-        echo "------- Cart -------\n";
-        foreach ($this->items as $cartItem) {
-            $item = $cartItem->item;
-            $quantity = $cartItem->quantity;
-            $price = $item->price;
-            $subtotal = $price * $quantity;
+    public function showCart(): string {
+        $html = "";
 
-            echo "Product: {$item->name}\n";
-            echo "Unit Price: $ {$price}\n";
-            echo "Quantity: {$quantity}\n";
-            echo "Subtotal: $ {$subtotal}\n";
-            echo "--------------------\n";
+        foreach ($this->items as $cartItem) {
+            $html .= $cartItem->showCartItem();
         }
-        echo "Total: $ " . $this->total() . "\n";
-        echo "--------------------\n";
+
+        $html .= "<strong>Total: $".$this->total()."</strong><br><hr>";
+        return $html;
     }
 }
-
-$i1 = new Item(1,"Mouse", 15);
-$i2 = new Item(2,"Keyboard",99.90);
-$i3 = new Item(3,"Chair",150);
-$i4 = new Item(4,"Table",550);
-$i5 = new Item(5,"Laptop",4500);
-
-$cart = new Cart();
-$cart->addItem($i1,1);
-$cart->addItem($i5, 2);
-
-$cart->showCart();
