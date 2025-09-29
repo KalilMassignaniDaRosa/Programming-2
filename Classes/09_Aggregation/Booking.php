@@ -7,22 +7,31 @@ class Booking {
     public float $valuePerDay;
     private DateTime $checkIn;
     private DateTime $checkOut;
-    // Booking -> Room
-    // Unidirecional
-    private Room $room;
-    // Booking -> Invoice
-    // Unidirecional
-    private Invoice $invoice;
+    // Booking agrega rooms
+    private array $rooms = [];
+    private ?Invoice $invoice = null;
 
-    public function __construct(int $id, float $valuePerDay,
-    DateTime $checkIn, DateTime $checkOut, Room $room, Invoice $invoice) {
+    public function __construct(
+        int $id,
+        float $valuePerDay,
+        DateTime $checkIn,
+        DateTime $checkOut
+    ) {
         $this->id = $id;
         $this->valuePerDay = $valuePerDay;
         $this->checkIn = $checkIn;
         $this->checkOut = $checkOut;
-        $this->room = $room;
+    }
+
+    #region Aggregation
+    public function addRoom(Room $room): void {
+        $this->rooms[] = $room;
+    }
+
+    public function setInvoice(Invoice $invoice): void {
         $this->invoice = $invoice;
     }
+    #endregion
 
     #region Getters
     public function getId(): int {
@@ -41,8 +50,8 @@ class Booking {
         return $this->checkOut;
     }
 
-    public function getRoom(): Room {
-        return $this->room;
+    public function getRooms(): array {
+        return $this->rooms;
     }
 
     public function getInvoice(): Invoice {
@@ -66,14 +75,6 @@ class Booking {
     public function setCheckOut(DateTime $checkOut): void {
         $this->checkOut = $checkOut;
     }
-
-    public function setRoom(Room $room): void {
-        $this->room = $room;
-    }
-
-    public function setInvoice(Invoice $invoice): void {
-        $this->invoice = $invoice;
-    }
     #endregion
 
     public function showInfo(): string {
@@ -81,9 +82,12 @@ class Booking {
                  . "ID: " . $this->getId() . "<br>"
                  . "Value per Day: $" . number_format($this->getValuePerDay(),2,'.',',') . "<br>"
                  . "Check-In: " . $this->getCheckIn()->format('d/m/Y H:i') . "<br>"
-                 . "Check-Out: " . $this->getCheckOut()->format('d/m/Y H:i') . "<br>"
-                 . "Room Number: " . $this->getRoom()->getNumber() . "</p>";
+                 . "Check-Out: " . $this->getCheckOut()->format('d/m/Y H:i') . "<br>";
 
-        return $message;
+        foreach ($this->rooms as $r) {
+            $message .= "Room Number: {$r->getNumber()}<br>";
+        }
+
+        return $message . "</p>";
     }
 }
