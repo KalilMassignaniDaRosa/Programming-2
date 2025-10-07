@@ -55,7 +55,7 @@ class Invoice
         $checkIn  = $booking->getCheckIn();
         $checkOut = $booking->getCheckOut();
 
-        // Colo horas como 0
+        // Coloca horas como 0
         $ci = (clone $checkIn)->setTime(0, 0, 0);
         $co = (clone $checkOut)->setTime(0, 0, 0);
 

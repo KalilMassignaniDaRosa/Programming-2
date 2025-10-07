@@ -13,10 +13,11 @@ $room = new Room(101, 1,
 $checkIn  = new DateTime('2025-09-23 14:00');
 $checkOut = new DateTime('2025-09-25 11:00');
 
-// Booking agrega Room e Invoice
+
 $booking = new Booking(1, 250.00,
     $checkIn,$checkOut);
 
+// Booking agrega Room
 $room->setBookingId($booking->getId());
 
 // Guest agrega Booking
@@ -28,7 +29,7 @@ $guest = new Guest("123.456.789-00","Kalil M. da Rosa",
 <head>
     <meta charset="UTF-8">
     <title><?= basename(__FILE__) ?></title>
-    <link rel="stylesheet" href="../../generic.css">
+    <link rel="stylesheet" href="../../../generic.css">
 </head>
 <body>
     <div class="container">

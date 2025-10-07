@@ -11,12 +11,9 @@ class Booking {
     private array $rooms = [];
     private ?Invoice $invoice = null;
 
-    public function __construct(
-        int $id,
-        float $valuePerDay,
-        DateTime $checkIn,
-        DateTime $checkOut
-    ) {
+    public function __construct(int $id,float $valuePerDay,
+        DateTime $checkIn,DateTime $checkOut)
+    {
         $this->id = $id;
         $this->valuePerDay = $valuePerDay;
         $this->checkIn = $checkIn;

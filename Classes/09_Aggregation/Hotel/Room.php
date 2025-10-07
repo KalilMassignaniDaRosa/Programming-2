@@ -7,7 +7,8 @@ class Room {
     private ?int $bookingId = null;
 
     public function __construct(int $number, int $floor,
-    string $type, bool $avaible, ?int $bookingId = null) {
+        string $type, bool $avaible, ?int $bookingId = null)
+    {
         $this->number = $number;
         $this->floor = $floor;
         $this->type = $type;

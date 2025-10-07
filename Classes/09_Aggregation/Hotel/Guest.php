@@ -9,7 +9,8 @@ class Guest {
     private Booking $booking;
 
     public function __construct(string $cpf, string $name,
-    string $email, Booking $booking) {
+        string $email, Booking $booking)
+    {
         $this->cpf = $cpf;
         $this->name = $name;
         $this->email = $email;
